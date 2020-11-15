@@ -41,7 +41,7 @@ function drawBricks() {
             bricks[c][r].y = brickY;
             contex.beginPath();
             contex.rect(brickX, brickY, brickWidth, brickHeight);
-            contex.fillStyle = "#0095DD";
+            contex.fillStyle = "#eb6782";
             contex.fill();
             contex.closePath();
           }
@@ -52,7 +52,7 @@ function drawBricks() {
 function drawball(){
   contex.beginPath();
   contex.arc(x, y, ballRadius, 0, Math.PI*2);
-  contex.fillStyle = "#0095DD";
+  contex.fillStyle = "#295ba7";
   contex.fill();
   contex.closePath();
 }
@@ -60,7 +60,7 @@ function drawball(){
 function drawPaddle() {
     contex.beginPath();
     contex.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
-    contex.fillStyle = "#0095DD";
+    contex.fillStyle = "#295ba7";
     contex.fill();
     contex.closePath();
 }
@@ -163,13 +163,13 @@ function collisionDetection() {
 }
 function drawScore() {
     contex.font = "16px Arial";
-    contex.fillStyle = "#0095DD";
+    contex.fillStyle = "#295ba7";
     contex.fillText("Score: "+score, 8, 20);
 }
 
 function drawLives() {
     contex.font = "16px Arial";
-    contex.fillStyle = "#0095DD";
+    contex.fillStyle = "#295ba7";
     contex.fillText("Lives: "+lives, canvas.width-65, 20);
 }
 
