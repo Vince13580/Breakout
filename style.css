@@ -12,3 +12,6 @@ canvas {
 body {
  background-image: url("arcade.jpg");
 }
+audio {
+  display: none;
+}

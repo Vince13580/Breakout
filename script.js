@@ -3,18 +3,19 @@ var canvas = document.getElementById("myCanvas");
 var contex = canvas.getContext("2d");
 var x = canvas.width/2;
 var y = canvas.height-30;
-var dx = 3.5;
-var dy = -3.5;
+var center= canvas.height/2;
+var dx = 4;
+var dy = -4;
 var ballRadius = 10;
 var paddleHeight = 10;
-var paddleWidth = 75;
+var paddleWidth = canvas.width/12.8;
 var paddleX = (canvas.width-paddleWidth)/2;
 var rightPressed = false;
 var leftPressed = false;
 var brickRowCount = 3;
 var brickColumnCount = 12;
-var brickWidth = 65;
-var brickHeight = 20;
+var brickWidth = (canvas.width/brickColumnCount) - 14;
+var brickHeight = (canvas.height/brickColumnCount) - 15;
 var brickPadding = 10;
 var brickOffsetTop = 30;
 var brickOffsetLeft = 30;
@@ -23,17 +24,17 @@ var lives = 3;
 
 
 var bricks = [];
-for(var c=0; c<brickColumnCount; c++) {
+for(let c=0; c<brickColumnCount; c++) {
     bricks[c] = [];
-    for(var r=0; r<brickRowCount; r++) {
+    for(let r=0; r<brickRowCount; r++) {
         bricks[c][r] = { x: 0, y: 0, status: 1 };
     }
 }
 
 
 function drawBricks() {
-    for(var c=0; c<brickColumnCount; c++) {
-        for(var r=0; r<brickRowCount; r++) {
+    for(let c=0; c<brickColumnCount; c++) {
+        for(let r=0; r<brickRowCount; r++) {
           if(bricks[c][r].status == 1) {
             let brickX = (c*(brickWidth+brickPadding))+brickOffsetLeft;
             let brickY = (r*(brickHeight+brickPadding))+brickOffsetTop;
@@ -66,6 +67,7 @@ function drawPaddle() {
 }
 
 function draw() {
+  document.removeEventListener("click", draw, false);
   contex.clearRect(0, 0, canvas.width, canvas.height);
   drawball();
   drawPaddle();
@@ -81,6 +83,7 @@ function draw() {
 } else if(y + dy > canvas.height-ballRadius) {
     if(x > paddleX && x < paddleX + paddleWidth) {
         dy = -dy;
+        document.getElementById("boing").play();
     }
     else {
       lives--;
@@ -91,8 +94,8 @@ if(!lives) {
 else {
   x = canvas.width/2;
   y = canvas.height-30;
-  dx = 3.5;
-  dy = -3.5;
+  dx = 4;
+  dy = -4;
   paddleX = (canvas.width-paddleWidth)/2;
 }
     }
@@ -127,7 +130,7 @@ function keyDownHandler(e) {
 }
 
 function mouseMoveHandler(e) {
-    var relativeX = e.clientX - canvas.offsetLeft;
+    let relativeX = e.clientX - canvas.offsetLeft;
     if(relativeX > 0 && relativeX < canvas.width) {
         paddleX = relativeX - paddleWidth/2;
     }
@@ -143,15 +146,18 @@ function keyUpHandler(e) {
 
 }
 function collisionDetection() {
-    for(var c=0; c<brickColumnCount; c++) {
-        for(var r=0; r<brickRowCount; r++) {
-            var b = bricks[c][r];
+    for(let c=0; c<brickColumnCount; c++) {
+        for(let r=0; r<brickRowCount; r++) {
+            let b = bricks[c][r];
             if(b.status == 1) {
                 if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight) {
                     dy = -dy;
                     b.status = 0;
+                    document.getElementById("hit").play();
                     score++;
+                    if(score % 2 ==0){speedadjust();}
                     if(score == brickRowCount*brickColumnCount) {
+                      document.getElementById("win").play();
                         alert("C'est gagné, Bravo!");
                         document.location.reload();
                     }
@@ -161,39 +167,46 @@ function collisionDetection() {
         }
     }
 }
+
+
+
 function drawScore() {
-    contex.font = "16px Arial";
+    contex.font = "16px Impact";
     contex.fillStyle = "#295ba7";
-    contex.fillText("Score: "+score, 8, 20);
+    contex.fillText("Score: "+score, 35, 20);
 }
 
 function drawLives() {
-    contex.font = "16px Arial";
+    contex.font = "16px Impact";
     contex.fillStyle = "#295ba7";
-    contex.fillText("Lives: "+lives, canvas.width-65, 20);
+    contex.fillText("Lives: "+lives, canvas.width-40, 20);
 }
 
-draw();
+function startmenu() {
+  contex.font = "90px Impact";
+  contex.fillStyle = "#d7c82b";
+  contex.textAlign ="center"
+  contex.fillText("BREAKOUT",x,center);
+  contex.font = "40px Impact";
+  contex.fillText("CLICK TO START A GAME",x,center +90);
+  document.addEventListener("click", draw, false);
 
 
+}
+function speedadjust() {
+    if (dx >=1){
+      dx += 0.1;
+    }else {
+      dx -= 0.1;
+    }
 
-/*contex.beginPath();
-contex.rect(20, 40, 50, 50);
-contex.fillStyle = "#FF0000";
-contex.fill();
-contex.closePath();
-
-contex.beginPath();
-contex.arc(240, 160, 20, 0, Math.PI*2, false);
-contex.fillStyle = "green";
-contex.fill();
-contex.closePath();
-
-contex.beginPath();
-contex.rect(160, 10, 100, 40);
-contex.strokeStyle = "rgba(0, 0, 255, 0.5)";
-contex.stroke();
-contex.closePath();*/
+    if (dy >=1){
+      dy += 0.1;
+    }else {
+    dy -= 0.1;
+    }
+}
+startmenu();
 
 
 });
