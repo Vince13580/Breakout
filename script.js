@@ -1,11 +1,12 @@
-document.addEventListener('DOMContentLoaded', function(){
-var canvas = document.getElementById("myCanvas");
+/*jshint esversion: 6 */
+$(document).ready(function() {
+var canvas = $("#myCanvas")[0];
 var contex = canvas.getContext("2d");
 var x = canvas.width/2;
 var y = canvas.height-30;
 var center= canvas.height/2;
-var dx = 4;
-var dy = -4;
+var dx = 3;
+var dy = -3;
 var ballRadius = 10;
 var paddleHeight = 10;
 var paddleWidth = canvas.width/12.8;
@@ -83,11 +84,12 @@ function draw() {
 } else if(y + dy > canvas.height-ballRadius) {
     if(x > paddleX && x < paddleX + paddleWidth) {
         dy = -dy;
-        document.getElementById("boing").play();
+        $("#boing")[0].play();
     }
     else {
       lives--;
 if(!lives) {
+  //losemenu();
   alert("GAME OVER");
   document.location.reload();
 }
@@ -101,7 +103,7 @@ else {
     }
 }
 if(x + dx > canvas.width-ballRadius || x + dx < ballRadius){
-  dx = -dx
+  dx = -dx;
 }
 if(rightPressed) {
     paddleX += 7;
@@ -153,13 +155,13 @@ function collisionDetection() {
                 if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight) {
                     dy = -dy;
                     b.status = 0;
-                    document.getElementById("hit").play();
+                    $("#hit")[0].play();
                     score++;
                     if(score % 2 ==0){speedadjust();}
                     if(score == brickRowCount*brickColumnCount) {
-                      document.getElementById("win").play();
-                        alert("C'est gagné, Bravo!");
-                        document.location.reload();
+                      //winmenu();
+                         alert("C'est gagné, Bravo!");
+                         document.location.reload();
                     }
 
                 }
@@ -185,14 +187,41 @@ function drawLives() {
 function startmenu() {
   contex.font = "90px Impact";
   contex.fillStyle = "#d7c82b";
-  contex.textAlign ="center"
+  contex.textAlign ="center";
   contex.fillText("BREAKOUT",x,center);
   contex.font = "40px Impact";
   contex.fillText("CLICK TO START A GAME",x,center +90);
   document.addEventListener("click", draw, false);
-
-
 }
+
+function winmenu() {
+  //window.cancelAnimationFrame(draw);
+  //var deferred = $.Deferred();
+  $("#win")[0].play();
+
+  /*contex.font = "90px Impact";
+  contex.fillStyle = "#d7c82b";
+  contex.textAlign ="center";
+  contex.fillText("YOU WIN",x,center);
+  contex.font = "40px Impact";
+  contex.fillText("CLICK TO RESTART A GAME",x,center +90);*/
+  //return deferred.promise();
+}
+
+
+
+function losemenu() {
+  contex.closePath();
+  //document.getElementById("win").play();
+  contex.font = "90px Impact";
+  contex.fillStyle = "#d7c82b";
+  contex.textAlign ="center";
+  contex.fillText("YOU LOSE",x,center);
+  contex.font = "40px Impact";
+  contex.fillText("CLICK TO RESTART A GAME",x,center +90);
+  //document.addEventListener("click", startmenu, false);
+}
+
 function speedadjust() {
     if (dx >=1){
       dx += 0.1;
@@ -206,7 +235,18 @@ function speedadjust() {
     dy -= 0.1;
     }
 }
+
+function sleep(milliseconds) {
+  //var deferred = $.Deferred();
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+  //return deferred.promise();
+
+}
 startmenu();
-
-
+// idée : utiliser du php, et des pages différentes, avoir 3 ou 4 niveau puis une page différente pour gagner
 });
