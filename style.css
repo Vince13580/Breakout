@@ -2,9 +2,8 @@
    padding: 0; margin: 0;
 }
 canvas {
-
-  display: block;
-  margin: 0 auto;
+  margin-right: 5%;
+  align-self: center;
   border-style: dashed;
   border-width: medium;
   border-color: #d7c82b;
@@ -16,23 +15,28 @@ audio {
   display: none;
 }
 #form{
-  display: block;
-  position: absolute;
-  background-color: black;
-  left: 385px;
-  top: 250px;
+  background-color: #d7c82b;
   border-style: dashed;
   border-width: medium;
   border-color: #d7c82b;
   text-align: center;
-  color: #eb6782;
+  color: 	#295ba7;
+  align-self: center;
 }
 
 #instructions{
   display: block;
-  position: absolute;
-  align-self: center;
-  left: 24%;
+  text-align: center;
   font-size: 25px;
   color: #d7c82b
+}
+
+#container{
+  display: flex;
+  flex-direction: row;
+  justify-content:center;
+  align-items: center;
+  flex-wrap: wrap;
+  align-content: flex-start;
+
 }
