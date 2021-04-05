@@ -15,3 +15,24 @@ body {
 audio {
   display: none;
 }
+#form{
+  display: block;
+  position: absolute;
+  background-color: black;
+  left: 385px;
+  top: 250px;
+  border-style: dashed;
+  border-width: medium;
+  border-color: #d7c82b;
+  text-align: center;
+  color: #eb6782;
+}
+
+#instructions{
+  display: block;
+  position: absolute;
+  align-self: center;
+  left: 24%;
+  font-size: 25px;
+  color: #d7c82b
+}

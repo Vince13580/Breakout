@@ -25,8 +25,22 @@ Your browser does not support the audio element.
 <source src="win.wav" type="audio/wav" >
 Your browser does not support the audio element.
 </audio>
+<p id="test"></p>
 
 <canvas id="myCanvas" width="960" height="640"></canvas>
+
+<form id="form" method="post">
+<p>SPEED:</p>
+  <input type="radio" id="easy" name="difficulty" value="easy" checked="true">
+  <label for="easy">EASY</label><br>
+  <input type="radio" id="medium" name="difficulty" value="medium">
+  <label for="medium">MEDIUM</label><br>
+  <input type="radio" id="hard" name="difficulty" value="hard">
+  <label for="hard">HARD</label><br>
+  <input type="button" id="select" value="Change">
+</form>
+  <p id="instructions">Select speed, place mouse at the bottom center of the play zone and press spacebar to start the game<p>
+
 
 </body>
 </html>
