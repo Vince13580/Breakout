@@ -28,7 +28,7 @@ $(document).ready(function() {
   var score = 0;
   var lives = 3;
 
-//difficulty settings
+//speed settings
   const btn = document.querySelector('#select');
   // handle click button
   btn.onclick = function () {
@@ -145,9 +145,7 @@ $(document).ready(function() {
       else {
         lives--;
         if(!lives) {
-          //losemenu();
-          alert("GAME OVER");
-          document.location.reload();
+          document.location='lose.html';
         }
         else {
           $('#easy').prop("checked", true).trigger("click");
@@ -223,9 +221,9 @@ $(document).ready(function() {
             if(score % 2 ==0){speedadjust();}
             if(score == brickRowCount*brickColumnCount) {
               //winmenu();
-              alert("C'est gagné, Bravo!");
+              //alert("C'est gagné, Bravo!");
               lives =3;
-              document.location.reload();
+              document.location='victory.html';
             }
 
           }

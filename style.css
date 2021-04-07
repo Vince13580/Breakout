@@ -40,3 +40,10 @@ audio {
   align-content: flex-start;
 
 }
+#victory{
+  align-self: center;
+  border-style: dashed;
+  border-width: medium;
+  border-color: #d7c82b;
+
+}
